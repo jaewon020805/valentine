@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <style>
+        body { background-color: #fdf2f2; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; font-family: 'Apple SD Gothic Neo', sans-serif; }
+        .container { text-align: center; background: white; padding: 40px; border-radius: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        h1 { color: #e94d58; font-size: 24px; margin-top: 20px; }
+        .gif-container img { width: 200px; border-radius: 20px; }
+        .btn-group { margin-top: 30px; display: flex; justify-content: center; align-items: center; gap: 15px; min-height: 100px; }
+        button { border: none; border-radius: 50px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        #yesBtn { background-color: #61cf65; color: white; padding: 15px 35px; font-size: 18px; }
+        #noBtn { background-color: #f44336; color: white; padding: 10px 25px; font-size: 16px; position: relative; }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="card">
+        <div class="gif-container">
+            <img id="mainGif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHIwd3p4N3R4N3R4N3R4N3R4N3R4N3R4N3R4N3R4N3R4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJLufpNUMo/giphy.gif" alt="bear">
+        </div>
+        <h1 id="question">나랑 발렌타인 같이 보낼래? 🌹</h1>
+        
+        <div class="btn-group">
+            <button id="yesBtn" onclick="nextPage()">응! 당연하지!</button>
+            <button id="noBtn" onmouseover="moveButton()">아니...</button>
+        </div>
+    </div>
+
+    <script>
+        const noPhrases = ["진짜로?", "다시 생각해봐..", "왜 그래ㅠㅠ", "제발!", "나 울거야..", "안돼 누르지마!"];
+        let noCount = 0;
+
+        function moveButton() {
+            const noBtn = document.getElementById('noBtn');
+            const yesBtn = document.getElementById('yesBtn');
+            
+            // 1. No 버튼 문구 변경
+            if(noCount < noPhrases.length) {
+                noBtn.innerText = noPhrases[noCount];
+                noCount++;
+            }
+
+            // 2. Yes 버튼이 점점 커짐 (영상 속 핵심 포인트!)
+            const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+            yesBtn.style.fontSize = (currentSize * 1.3) + 'px';
+            yesBtn.style.padding = (parseFloat(window.getComputedStyle(yesBtn).paddingTop) * 1.2) + 'px ' + 
+                                   (parseFloat(window.getComputedStyle(yesBtn).paddingLeft) * 1.2) + 'px';
+
+            // 3. No 버튼이 마우스 피해서 도망가기
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        }
+
+        function nextPage() {
+            document.getElementById('card').innerHTML = `
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHIwd3p4N3R4N3R4N3R4N3R4N3R4N3R4N3R4N3R4N3R4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/26BRv0ThflsHCqf0k/giphy.gif" style="width:250px; border-radius:20px;">
+                <h1 style="color: #e94d58;">예쓰!!! ❤️<br>우리 오늘부터 1일이야!</h1>
+            `;
+        }
+    </script>
+</body>
+</html>
